@@ -32,7 +32,8 @@ https://ahmed-sma.github.io/Portfolio/
 
 ## Contact
 
-Email: ahmed@consultevolve.org
+Email: ahmed.filmit@gmail.com
 LinkedIn: https://www.linkedin.com/in/syedm-ahmed-shah/
 Behance: https://www.behance.net/syedahmed197
+WhatsApp: https://wa.me/923061860551
 GitHub: https://github.com/Ahmed-SMA
