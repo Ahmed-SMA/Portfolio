@@ -67,11 +67,12 @@
       '<article class="article-card reveal" style="transition-delay:' + delay + 's">' +
       '<a class="article-card-link" href="' + articleUrl(article.slug) + '" aria-label="Read ' + article.title + '">' +
       '<div class="article-art"><img src="' + coverSrc(article.cover) + '" alt="" loading="lazy" decoding="async"></div>' +
-      '<p>' + article.category + '</p>' +
+      '<div class="article-card-body">' +
+      '<p class="article-category">' + article.category + '</p>' +
       '<h3>' + article.title + '</h3>' +
-      '<span>' + article.excerpt + '</span>' +
+      '<p class="article-excerpt">' + article.excerpt + '</p>' +
       '<span class="article-card-cta">Read Article →</span>' +
-      '</a></article>'
+      '</div></a></article>'
     );
   }
 
@@ -87,11 +88,12 @@
         return (
           '<article class="article-card reveal" style="transition-delay:' + index * 0.1 + 's">' +
           '<div class="article-art"><img src="' + coverSrc(article.cover) + '" alt="" loading="lazy" decoding="async"></div>' +
-          '<p>' + article.category + '</p>' +
+          '<div class="article-card-body">' +
+          '<p class="article-category">' + article.category + '</p>' +
           '<h3>' + article.title + '</h3>' +
-          '<span>' + article.excerpt + '</span>' +
-          '<a href="' + articleUrl(article.slug) + '">Read Article →</a>' +
-          '</article>'
+          '<p class="article-excerpt">' + article.excerpt + '</p>' +
+          '<a class="article-card-cta" href="' + articleUrl(article.slug) + '">Read Article →</a>' +
+          '</div></article>'
         );
       })
       .join('');
@@ -173,16 +175,6 @@
     window.addEventListener('scroll', update, { passive: true });
   }
 
-  function bindManageCovers() {
-    var btn = $('#manage-covers-btn');
-    var panel = $('#covers-guide');
-    if (!btn || !panel) return;
-
-    btn.addEventListener('click', function () {
-      panel.hidden = !panel.hidden;
-    });
-  }
-
   function initListingPage() {
     var grid = $('#articles-grid');
     if (!grid) return;
@@ -198,7 +190,6 @@
         }
       });
 
-    bindManageCovers();
   }
 
   function initPreviewSection() {
