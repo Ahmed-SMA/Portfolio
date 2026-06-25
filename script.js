@@ -84,3 +84,48 @@ if(formReset&&contactForm&&glassForm&&formSuccess){
     formSuccess.hidden=true;
   });
 }
+
+function animateStatNumber(el,duration){
+  var target=parseInt(el.getAttribute('data-target'),10);
+  var suffix=el.getAttribute('data-suffix')||'';
+  if(isNaN(target)){return;}
+  var start=0;
+  var startTime=null;
+  function frame(timestamp){
+    if(!startTime){startTime=timestamp;}
+    var progress=Math.min((timestamp-startTime)/duration,1);
+    var eased=1-Math.pow(1-progress,3);
+    var value=Math.round(start+(target-start)*eased);
+    el.textContent=value+suffix;
+    if(progress<1){requestAnimationFrame(frame);}
+  }
+  requestAnimationFrame(frame);
+}
+
+document.querySelectorAll('.stat-number').forEach(function(el){
+  var stat=el.closest('.stat');
+  if(!stat){return;}
+  var counted=false;
+  var statObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting&&!counted){
+        counted=true;
+        animateStatNumber(el,1600);
+        statObserver.unobserve(stat);
+      }
+    });
+  },{threshold:.35});
+  statObserver.observe(stat);
+});
+
+document.querySelectorAll('.stat-tilt').forEach(function(card){
+  card.addEventListener('mousemove',function(e){
+    var rect=card.getBoundingClientRect();
+    var x=(e.clientX-rect.left)/rect.width-.5;
+    var y=(e.clientY-rect.top)/rect.height-.5;
+    card.style.transform='perspective(700px) rotateY('+x*10+'deg) rotateX('+(-y*10)+'deg) translateY(-8px)';
+  });
+  card.addEventListener('mouseleave',function(){
+    card.style.transform='';
+  });
+});
